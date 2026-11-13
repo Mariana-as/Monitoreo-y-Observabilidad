@@ -33,4 +33,4 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/monitoreo-y-observabilidad:latest
+          tags: ghcr.io/mariana-as/monitoreo-y-observabilidad:latest
