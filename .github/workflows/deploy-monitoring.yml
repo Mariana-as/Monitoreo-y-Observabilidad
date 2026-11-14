@@ -1,0 +1,25 @@
+name: Desplegar monitoreo en EC2
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'monitoring/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Actualizar Prometheus y Grafana
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/admin/Taller_MonObs
+            git pull origin main
+            sudo docker-compose up -d --force-recreate prometheus grafana
